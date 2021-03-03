@@ -11,20 +11,20 @@ function main() {
   const cronTime = '0 10 * * *';
 
   cron.schedule(cronTime, () => {
-    const { OUTLOOK_PW } = process.env;
+    const { OUTLOOK_EMAIL, OUTLOOK_PW } = process.env;
 
     let transporter = nodemailer.createTransport({
       host: 'smtp-mail.outlook.com',
       secure: false,
       port: 587, // default port for insecure
       auth: {
-        user: 'goozybot@outlook.com',
+        user: OUTLOOK_EMAIL,
         pass: OUTLOOK_PW,
       },
     });
 
     let mailOptions = {
-      from: '"Vitamin Reminder" <goozybot@outlook.com',
+      from: `"Vitamin Reminder" <${OUTLOOK_EMAIL}`,
       to: emails,
       subject: 'IMPORTANT',
       text: 'This is goozybot reminding you to give Sophia her vitamin :)',
